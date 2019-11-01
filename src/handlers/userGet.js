@@ -1,14 +1,30 @@
 import AWS from 'aws-sdk';
 
-import { errorResponse } from '../utils/error';
+import errorResponse from '../utils/error';
 
 // We are using last versions of API
 const dyna = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 
 /**
+ * Get User's profile
+ * @userId
+ */
+const getDynamoProfile = async ({ userId }) =>
+  dyna
+    .getItem({
+      TableName: 'Users',
+      Key: {
+        userId: { S: userId }
+      },
+      ProjectionExpression: 'ATTRIBUTE_NAME'
+    })
+    .promise()
+    .then(ret => ret);
+
+/**
  * A lambda fct that returns some user information
  */
-exports.handler = async (event, context, callback) => {
+const getUser = async (event, context, callback) => {
   if (!event.requestContext.authorizer) {
     errorResponse({
       errorMessage: 'Authorization not configured',
@@ -20,13 +36,13 @@ exports.handler = async (event, context, callback) => {
 
   // user is authenticated
   // we retrieve the usedId from Cognito authentication provider
-  let userId = event.requestContext.identity.cognitoAuthenticationProvider.split(
+  const userId = event.requestContext.identity.cognitoAuthenticationProvider.split(
     ':CognitoSignIn:'
   )[1];
 
   try {
     // retrieve some information from the user profile stored in dynamoBD
-    const { firstName, lastName, email } = await getProfile({ userId });
+    const { firstName, lastName, email } = await getDynamoProfile({ userId });
 
     callback(null, {
       statusCode: 201,
@@ -48,18 +64,4 @@ exports.handler = async (event, context, callback) => {
   }
 };
 
-/**
- * Get User's profile
- * @username
- */
-const getProfile = async ({ userId }) =>
-  dyna
-    .getItem({
-      TableName: 'Users',
-      Key: {
-        'userId': { S: userId }
-      },
-      ProjectionExpression: 'ATTRIBUTE_NAME'
-    })
-    .promise()
-    .then(ret => ret);
+export default getUser;

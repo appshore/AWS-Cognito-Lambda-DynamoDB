@@ -1,6 +1,8 @@
 /**
  * Formatted error response
- * @param {*} param0
+ * @errorMessage
+ * @awsRequestId
+ * @callback
  */
 const errorResponse = ({ errorMessage, awsRequestId, callback }) =>
   callback(null, {
@@ -14,4 +16,4 @@ const errorResponse = ({ errorMessage, awsRequestId, callback }) =>
     }
   });
 
-export { errorResponse };
+export default errorResponse;

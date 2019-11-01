@@ -24,6 +24,9 @@ yarn lint
 # Run tests
 yarn tests
 
+# Start serverless offline
+serverless offline start
+
 # Run health check lambda function
 yarn health
 

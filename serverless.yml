@@ -1,0 +1,32 @@
+service: xyzreality
+
+# Create an optimized package for our functions
+package:
+  individually: true
+
+plugins:
+  - serverless-bundle
+  - serverless-offline
+  # - serverless-dotenv-plugin # not use in this test
+
+provider:
+  name: aws
+  runtime: nodejs10.x
+  stage: dev
+  region: eu-west-1
+  # environment:  # not use in this test
+  #   envVar: ${env:ENV_VAR}
+
+functions:
+  health:
+    handler: handler.health
+    events:
+      - http:
+          path: health
+          method: get
+  userGet:
+    handler: handler.userGet
+    events:
+      - http:
+          path: user
+          method: get

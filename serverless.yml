@@ -1,6 +1,5 @@
 service: xyzreality
 
-# Create an optimized package for our functions
 package:
   individually: true
 
@@ -19,13 +18,13 @@ provider:
 
 functions:
   health:
-    handler: handler.health
+    handler: src/handlers/health.check
     events:
       - http:
           path: health
           method: get
   userGet:
-    handler: handler.userGet
+    handler: "src/handlers/user.userGet"
     events:
       - http:
           path: user

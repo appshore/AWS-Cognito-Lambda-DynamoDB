@@ -1,21 +1,19 @@
-import { errorResponse } from '../utils/error';
-
-exports.handler = async (event, context, callback) => {
-  try {
-    callback(null, {
-      statusCode: 201,
-      body: JSON.stringify({
-        message: 'Health check passed'
-      }),
-      headers: {
-        'Access-Control-Allow-Origin': '*'
-      }
-    });
-  } catch (err) {
-    errorResponse({
-      errorMessage: err.message,
-      awsRequestId: context.awsRequestId,
-      callback
-    });
-  }
+/**
+ * Health check Lambda
+ * @event
+ * @context
+ * @callback
+ */
+const health = async (event, context, callback) => {
+  callback(null, {
+    statusCode: 200,
+    body: JSON.stringify({
+      message: 'Health check passed'
+    }),
+    headers: {
+      'Access-Control-Allow-Origin': '*'
+    }
+  });
 };
+
+export default health;

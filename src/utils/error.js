@@ -1,8 +1,8 @@
 /**
  * Formatted error response
- * @errorMessage
- * @awsRequestId
- * @callback
+ * @param errorMessage
+ * @param awsRequestId
+ * @param callback
  */
 const errorResponse = ({ errorMessage, awsRequestId, callback }) =>
   callback(null, {

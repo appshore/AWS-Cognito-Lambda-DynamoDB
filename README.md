@@ -1,4 +1,4 @@
-# XYZ Reality - Test
+# AWS with Cognito - Lambda - DynamoDB
 
 ## Prerequisites
 

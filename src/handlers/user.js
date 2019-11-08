@@ -7,7 +7,7 @@ const dyna = new AWS.DynamoDB({ apiVersion: '2012-08-10' });
 
 /**
  * Get User's profile
- * @userId
+ * @param serId
  */
 const getDynamoProfile = async ({ userId }) =>
   dyna

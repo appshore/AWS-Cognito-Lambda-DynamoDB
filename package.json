@@ -10,7 +10,7 @@
     "tests": "serverless-bundle test"
   },
   "dependencies": {
-    "aws-sdk": "^2.503.0"
+    "aws-sdk": "^2.814.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0",
